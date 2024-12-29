@@ -5,6 +5,7 @@ use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\YoutubeController;
 use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,24 @@ Route::middleware('auth')->prefix('users')->name('users.')->group(function(){
     Route::get('/content/create', [App\Http\Controllers\User\ContentController::class, 'create'])->name('content.create');
     Route::post('/content/store', [App\Http\Controllers\User\ContentController::class, 'store'])->name('content.store');
     Route::get('/content/get', [App\Http\Controllers\User\ContentController::class, 'getData'])->name('content.get');
+    Route::get('/content/edit/{id}', [App\Http\Controllers\User\ContentController::class, 'edit'])->name('content.edit');
+    Route::post('/content/update', [App\Http\Controllers\User\ContentController::class, 'update'])->name('content.update');
+    Route::post('/content/update/individual', [App\Http\Controllers\User\ContentController::class, 'updateIndividual'])->name('content.update.individual');
+    Route::get('/content/delete/{id}', [App\Http\Controllers\User\ContentController::class, 'delete'])->name('content.delete');
+
+    // ---- Content Playlist
+    Route::get('/content/playlist', [App\Http\Controllers\User\ContentPlaylistController::class, 'index'])->name('content.playlist');
+    Route::get('/content/playlist/get', [App\Http\Controllers\User\ContentPlaylistController::class, 'getData'])->name('content.playlist.get');
+    Route::post('/content/playlist/store', [App\Http\Controllers\User\ContentPlaylistController::class, 'store'])->name('content.playlist.create');
+    Route::post('/content/playlist/edit', [App\Http\Controllers\User\ContentPlaylistController::class, 'edit'])->name('content.playlist.edit');
+    Route::post('/content/playlist/update', [App\Http\Controllers\User\ContentPlaylistController::class, 'update'])->name('content.playlist.update');
+    Route::post('/content/playlist/update/individual', [App\Http\Controllers\User\ContentPlaylistController::class, 'updateIndividual'])->name('content.playlist.update.individual');
+    Route::post('/content/playlist/delete', [App\Http\Controllers\User\ContentPlaylistController::class, 'delete'])->name('content.playlist.delete');
+    Route::post('/playlist/add/video', [App\Http\Controllers\User\ContentPlaylistController::class, 'addVideo'])->name('playlist.add.video');
+    Route::post('/content/delete/video', [App\Http\Controllers\User\ContentPlaylistController::class, 'deleteVideo'])->name('playlist.video.delete');
+
+    Route::post('/youtube/get', [YoutubeController::class, 'get'])->name('youtube.get');
+    Route::post('/youtube/data', [YoutubeController::class, 'data'])->name('youtube.data');
 });
 
 // Admin

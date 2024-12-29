@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'y_key' => 'AIzaSyDgBL2RK8nfvvA8SKvTHFmR4r6JjkKYkC0',
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -176,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Alaouy\Youtube\YoutubeServiceProvider::class,
     ],
 
     /*
@@ -232,8 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-
-
+        'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
     ],
 
 ];

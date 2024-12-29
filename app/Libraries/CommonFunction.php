@@ -106,6 +106,20 @@ class CommonFunction
         return '<span class="' . $class . '">' . $status . '</span>';
     }
 
+    public static function getPublicStatus($status) {
+        if (!empty($status) && $status == 1) {
+            $class = 'badge rounded-pill px-3 py-1 bg-primary bg-glow';
+            $status = 'Private';
+        } else if (!empty($status) && $status == 2) {
+            $class = 'badge rounded-pill px-3 py-1 bg-warning bg-glow';
+            $status = 'Only Me';
+        } else{
+            $class = 'badge rounded-pill px-3 py-1 bg-secondary bg-glow';
+            $status = 'Public';
+        }
+        return '<span class="' . $class . '">' . $status . '</span>';
+    }
+
     public static function getProposalStatus($status) {
         if (!empty($status) && $status == 1) {
             $class = 'badge rounded-pill px-3 py-1 bg-success bg-glow';

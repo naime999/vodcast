@@ -593,7 +593,7 @@ table.dataTable thead .sorting_asc::before,
 table.dataTable thead .sorting_desc::before,
 table.dataTable thead .sorting_asc_disabled::before,
 table.dataTable thead .sorting_desc_disabled::before {
-  content: "\ea62" !important;
+  /* content: "\ea62" !important; */
   top: 0.3rem !important;
 }
 table.dataTable thead .sorting::after,
@@ -602,7 +602,7 @@ table.dataTable thead .sorting_desc::after,
 table.dataTable thead .sorting_asc_disabled::after,
 table.dataTable thead .sorting_desc_disabled::after {
   bottom: 1rem !important;
-  content: "\ea5f" !important;
+  /* content: "\ea5f" !important; */
 }
 [dir=rtl] table.dataTable thead .sorting::before,
 [dir=rtl] table.dataTable thead .sorting_asc::before,
