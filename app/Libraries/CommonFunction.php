@@ -14,6 +14,8 @@ use PHPMailer\PHPMailer\Exception;
 class CommonFunction
 {
 
+    public $categories;
+
     public static function getProjectRootDirectory()
     {
         return base_path();

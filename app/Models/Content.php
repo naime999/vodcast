@@ -2,21 +2,31 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\YoutubeController;
+use Alaouy\Youtube\Youtube;
 
-class Content extends Authenticatable
+class Content extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
     protected $table = 'vodcast_content';
 
-    // public function userInfo()
-    // {
-    //     return $this->hasOne(User::class, 'id', 'client_id');
-    // }
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+
+    public function playlistItems()
+    {
+        $ytController = new YoutubeController();
+        $yt = $ytController->youtube;
+        $results = $yt->getPlaylistItemsByPlaylistId($this->youtube_id)['results'];
+        // foreach($results as $item){
+        //     $item->video = $yt->getVideoInfo($item->contentDetails->videoId);
+        // }
+        return $results;
+    }
+
 
 }

@@ -42,8 +42,9 @@
                     <i class="fas fa-list pr-1"></i>
                     <span>Content Playlist</span>
                 </a>
-                <a class="collapse-item" href="{{ route('home') }}">Categories
-
+                <a class="collapse-item" href="{{ route('users.youtube.playlist') }}">
+                    <i class="fas fa-list pr-1"></i>
+                    <span>Youtube Playlist</span>
                 </a>
                 {{-- <a class="collapse-item" href="{{ route('super-admin.import') }}">Import Data</a> --}}
             </div>

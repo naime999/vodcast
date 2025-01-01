@@ -64,8 +64,21 @@ Route::middleware('auth')->prefix('users')->name('users.')->group(function(){
     Route::post('/playlist/add/video', [App\Http\Controllers\User\ContentPlaylistController::class, 'addVideo'])->name('playlist.add.video');
     Route::post('/content/delete/video', [App\Http\Controllers\User\ContentPlaylistController::class, 'deleteVideo'])->name('playlist.video.delete');
 
+    // ---- Youtube Playlist
+    Route::get('/youtube/playlist', [App\Http\Controllers\User\YoutubePlaylistController::class, 'index'])->name('youtube.playlist');
+    Route::get('/youtube/playlist/get', [App\Http\Controllers\User\YoutubePlaylistController::class, 'getData'])->name('youtube.playlist.get');
+    Route::post('/youtube/playlist/store', [App\Http\Controllers\User\YoutubePlaylistController::class, 'store'])->name('youtube.playlist.store');
+    Route::post('/youtube/playlist/visibility', [App\Http\Controllers\User\YoutubePlaylistController::class, 'visibility'])->name('youtube.playlist.visibility');
+    Route::post('/youtube/playlist/edit', [App\Http\Controllers\User\YoutubePlaylistController::class, 'edit'])->name('youtube.playlist.edit');
+    Route::post('/youtube/playlist/update', [App\Http\Controllers\User\YoutubePlaylistController::class, 'update'])->name('youtube.playlist.update');
+    Route::post('/youtube/playlist/delete', [App\Http\Controllers\User\YoutubePlaylistController::class, 'delete'])->name('youtube.playlist.delete');
+
+
     Route::post('/youtube/get', [YoutubeController::class, 'get'])->name('youtube.get');
     Route::post('/youtube/data', [YoutubeController::class, 'data'])->name('youtube.data');
+    Route::post('/youtube/playlist/data', [YoutubeController::class, 'playlistData'])->name('youtube.playlist.data');
+    Route::post('/youtube/player', [YoutubeController::class, 'playerData'])->name('youtube.player.data');
+
 });
 
 // Admin

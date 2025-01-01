@@ -41,6 +41,10 @@
                     <i class="fas fa-list-alt mr-2 text-gray-400"></i>
                     Create Playlist
                 </a>
+                <a class="dropdown-item py-2" href="#" data-toggle="modal" data-target="#yPlaylistModal">
+                    <i class="fa-brands fa-youtube mr-2 text-gray-400"></i>
+                    Youtube Playlist
+                </a>
             </div>
         </li>
         <!-- Nav Item - User Information -->

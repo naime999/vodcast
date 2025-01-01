@@ -39,4 +39,28 @@ class YoutubeController extends Controller
         return $this->youtube->getVideoInfo($request->id);
     }
 
+    public function playlistData(Request $request)
+    {
+        $request->validate([
+            'id'   => 'required',
+        ]);
+        $playlist = $this->youtube->getPlaylistById($request->id);
+        $playlist->items = $this->youtube->getPlaylistItemsByPlaylistId($request->id);
+        return $playlist;
+    }
+
+    public function playerData(Request $request)
+    {
+        if (!$request->ajax()) {
+            return 'Sorry! this is a request without proper way.';
+        }
+
+        $request->validate([
+            'vid'   => 'required',
+        ]);
+
+        $videoData = $this->youtube->getLocalizedVideoInfo($request->vid, 'pl');
+        return response()->json($videoData);
+    }
+
 }

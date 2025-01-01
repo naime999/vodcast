@@ -42,6 +42,8 @@
     </a>
     <!-- Modals-->
     @include('users.common.create.playlist-modal')
+    @include('users.common.create.youtube-playlist-modal')
+    @include('users.common.player')
     @include('users.common.logout-modal')
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('js/app.js')}}"></script>
@@ -56,6 +58,7 @@
     </script>
     @yield('scripts')
     @include('users.common.cropper')
+    @include('users.common.create-js')
 </body>
 
 </html>
