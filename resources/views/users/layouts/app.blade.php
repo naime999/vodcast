@@ -6,7 +6,7 @@
 
 <body id="page-top">
     <div class="loader-overlay">
-        <div class="lv-squares lv-mid md"></div>
+        <div class="lv-bordered_line sm lv-mid"></div>
     </div>
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -42,6 +42,7 @@
     </a>
     <!-- Modals-->
     @include('users.common.create.playlist-modal')
+    @include('users.common.create.new-label-modal')
     @include('users.common.create.youtube-playlist-modal')
     @include('users.common.player')
     @include('users.common.logout-modal')
@@ -59,6 +60,7 @@
     @yield('scripts')
     @include('users.common.cropper')
     @include('users.common.create-js')
+    @include('users.common.player-js')
 </body>
 
 </html>

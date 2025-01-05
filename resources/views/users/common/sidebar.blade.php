@@ -62,7 +62,10 @@
         <div id="playlistDropDown" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">My Playlist</h6>
-                <a class="collapse-item" href="{{ route('home') }}">Group View</a>
+                <a class="collapse-item" href="{{ route('users.view.playlist') }}">
+                    <i class="fas fa-list pr-1"></i>
+                    <span>Group Playlist</span>
+                </a>
                 <a class="collapse-item" href="{{ route('home') }}">History</a>
                 {{-- <a class="collapse-item" href="{{ route('super-admin.import') }}">Import Data</a> --}}
             </div>

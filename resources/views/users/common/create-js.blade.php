@@ -39,4 +39,7 @@
             }
         });
     });
+    function newLabel(){
+        $('#newLabelModal').modal('show');
+    }
 </script>

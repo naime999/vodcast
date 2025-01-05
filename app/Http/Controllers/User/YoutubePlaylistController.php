@@ -85,8 +85,7 @@ class YoutubePlaylistController extends Controller
                         <li><button onClick="editPlaylist(this)" data-id="'.Crypt::encrypt($list->id).'" class="dropdown-item py-2 text-primary"><i class="fas fa-pen pr-2"></i> Edit</button></li>
                         <li><button onClick="changeStatus(this)" data-id="'.Crypt::encrypt($list->id).'" data-selected="'.$list->is_public.'" class="dropdown-item py-2 text-success"><i class="fas fa-rotate pr-2"></i> Change Status</button></li>
                         <li><button onClick="deletePlaylist(this)" data-id="'.Crypt::encrypt($list->id).'" class="dropdown-item py-2 text-danger"><i class="fas fa-trash pr-2"></i> Delete</button></li>
-                    </ul>
-                    </div>';
+                    </ul>';
                 })
                 ->addIndexColumn()
                 ->rawColumns(['title', 'thumbnail', 'is_public', 'action'])
