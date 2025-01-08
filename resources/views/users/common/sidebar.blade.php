@@ -13,16 +13,7 @@
         </a>
     </li>
 
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading"> Personal Settings </div>
-
-    <li class="nav-item {{ request()->routeIs('') ? 'active' : '' }}">
-        <a class="nav-link py-2" href="{{ route('home') }}">
-            <i class="fas fa-solid fa-user pr-1"></i>
-            <span>Profile Setup</span>
-        </a>
-    </li>
-
+    @canany(['content-list', 'content-playlist-list', 'youtube-playlist-list'])
     <hr class="sidebar-divider">
     <div class="sidebar-heading"> Vodcaster </div>
     <li class="nav-item {{ request()->routeIs('users.content') ? 'active' : '' }}">
@@ -34,25 +25,31 @@
         <div id="vodcastDropDown" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Vodcast</h6>
+                @can('content-list')
                 <a class="collapse-item" href="{{ route('users.content') }}">
                     <i class="fas fa-list pr-1"></i>
                     <span>Content List</span>
                 </a>
+                @endcan
+                @can('content-playlist-list')
                 <a class="collapse-item" href="{{ route('users.content.playlist') }}">
                     <i class="fas fa-list pr-1"></i>
                     <span>Content Playlist</span>
                 </a>
+                @endcan
+                @can('youtube-playlist-list')
                 <a class="collapse-item" href="{{ route('users.youtube.playlist') }}">
                     <i class="fas fa-list pr-1"></i>
                     <span>Youtube Playlist</span>
                 </a>
-                {{-- <a class="collapse-item" href="{{ route('super-admin.import') }}">Import Data</a> --}}
+                @endcan
             </div>
         </div>
     </li>
-
+    @endcanany
+    @canany(['view-playlist'])
     <hr class="sidebar-divider">
-    <div class="sidebar-heading"> Vodcaster </div>
+    <div class="sidebar-heading"> Views </div>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#playlistDropDown"
             aria-expanded="true" aria-controls="playlistDropDown">
@@ -61,34 +58,27 @@
         </a>
         <div id="playlistDropDown" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">My Playlist</h6>
+                <h6 class="collapse-header">View Contents</h6>
+                @can('view-playlist')
                 <a class="collapse-item" href="{{ route('users.view.playlist') }}">
                     <i class="fas fa-list pr-1"></i>
-                    <span>Group Playlist</span>
+                    <span>Playlist Views</span>
                 </a>
-                <a class="collapse-item" href="{{ route('home') }}">History</a>
-                {{-- <a class="collapse-item" href="{{ route('super-admin.import') }}">Import Data</a> --}}
+                @endcan
+                {{-- @can('view-playlist') --}}
+                <a class="collapse-item" href="{{ route('users.view.playlist') }}">
+                    <i class="fa-solid fa-rectangle-vertical-history pr-1"></i>
+                    <span>History Views</span>
+                </a>
+                {{-- @endcan --}}
             </div>
         </div>
     </li>
-    @can('proposal-list')
-        <li class="nav-item {{ request()->routeIs('super-admin.proposals') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('super-admin.proposals') }}">
-                <i class="fas fa-solid fa-file"></i>
-                <span>Proposals</span>
-                @if (getProposalCount() > 0)
-                    <span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{ getProposalCount() }}
-                    </span>
-                @endif
-            </a>
-        </li>
-    @endcan
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+    @endcanany
 
     @hasrole('Admin')
+        <!-- Divider -->
+        <hr class="sidebar-divider">
         <!-- Heading -->
         <div class="sidebar-heading"> Admin Section </div>
         <!-- Nav Item - Pages Collapse Menu -->
@@ -122,20 +112,13 @@
                 </div>
             </div>
         </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
     @endhasrole
-
+    <hr class="sidebar-divider">
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
         </a>
     </li>
-    <!-- Sidebar Toggler (Sidebar) -->
-    {{-- <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div> --}}
 </ul>
 

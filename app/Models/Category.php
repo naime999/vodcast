@@ -16,6 +16,7 @@ class Category extends Authenticatable
 
     public function relations()
     {
-        return $this->hasMany(CategoryProposal::class, 'category_id', 'id');
+        return $this->hasMany(Content::class, 'category_id', 'id');
     }
+
 }

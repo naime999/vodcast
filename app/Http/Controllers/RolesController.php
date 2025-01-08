@@ -67,10 +67,10 @@ class RolesController extends Controller
             Role::create($request->all());
 
             DB::commit();
-            return redirect()->route('admin.roles.index')->with('success','Roles created successfully.');
+            return redirect()->route('super-admin.roles.index')->with('success','Roles created successfully.');
         } catch (\Throwable $th) {
             DB::rollback();
-            return redirect()->route('admin.roles.add')->with('error',$th->getMessage());
+            return redirect()->route('super-admin.roles.create')->with('error',$th->getMessage());
         }
 
     }
@@ -95,7 +95,6 @@ class RolesController extends Controller
     public function edit($id)
     {
         $role = Role::whereId($id)->with('permissions')->first();
-
         $permissions = Permission::all();
 
         return view('admin.roles.edit', ['role' => $role, 'permissions' => $permissions]);

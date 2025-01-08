@@ -43,7 +43,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::with('relations')->get();
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function getData(Request $request)
@@ -56,11 +56,8 @@ class CategoryController extends Controller
             $list = Category::with('relations')->get();
 
             return DataTables::of($list)
-                ->editColumn('status', function ($list) {
-                    return "";
-                })
-                ->editColumn('proposal', function ($list) {
-                    return $list->relations->count();
+                ->addColumn('description', function ($list) {
+                    return \Illuminate\Support\Str::limit($list->description, 100);
                 })
                 ->addColumn('action', function ($list) {
                     // return "";
@@ -68,7 +65,7 @@ class CategoryController extends Controller
                         $ht = '<a href="javascript:;" class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                         <i class="text-primary ti ti-dots-vertical"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end m-0 p-0">
-                            <li><a href="javascript:;" class="dropdown-item py-2"><i class="fas fa-list pr-2"></i> Details</a></li>
+                            <li><a href="javascript:;" class="dropdown-item py-2 text-center">Options</a></li>
                             <div class="dropdown-divider m-0"></div>
                             <li>';
                         if(auth()->user()->can('category-edit')){
@@ -86,7 +83,7 @@ class CategoryController extends Controller
                     }
                 })
                 ->addIndexColumn()
-                ->rawColumns(['action'])
+                ->rawColumns(['description', 'action'])
                 ->make(true);
         } catch (\Exception $e) {
             // Session::flash('error', CommonFunction::showErrorPublic($e->getMessage()) . '[UC-1001]');
@@ -109,7 +106,10 @@ class CategoryController extends Controller
 
         $category = new Category();
 
-        $category->title = $request->title;
+        $category->name = $request->title;
+        $category->slug = Str::slug($request->title, '-');
+        $category->description = $request->description;
+        $category->is_active = 1;
 
         if($category->save()){
             return redirect()->back()->with('success', 'New category create successful.');
@@ -134,7 +134,11 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::find($request->id);
-        $category->title = $request->title;
+        $category->name = $request->title;
+        $category->slug = Str::slug($request->title, '-');
+        if($request->description != "" && $request->description != null){
+            $category->description = $request->description;
+        }
 
         if($category->save()){
             return redirect()->back()->with('success', 'Update category successful.');

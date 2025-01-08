@@ -36,6 +36,14 @@
         </li>
     @endcan
     @can('category-list')
+        <li class="nav-item {{ request()->routeIs('super-admin.categories') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('super-admin.categories') }}">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Categories</span>
+            </a>
+        </li>
+    @endcan
+    {{-- @can('category-list')
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#templteDropDown"
                 aria-expanded="true" aria-controls="templteDropDown">
@@ -47,11 +55,10 @@
                     <h6 class="collapse-header">Template Settings</h6>
                     <a class="collapse-item" href="{{ route('super-admin.template') }}">View Template</a>
                     <a class="collapse-item" href="{{ route('super-admin.categories') }}">Categories</a>
-                    {{-- <a class="collapse-item" href="{{ route('super-admin.import') }}">Import Data</a> --}}
                 </div>
             </div>
         </li>
-    @endcan
+    @endcan --}}
     @can('proposal-list')
         <li class="nav-item {{ request()->routeIs('super-admin.proposals') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('super-admin.proposals') }}">
@@ -73,6 +80,17 @@
         <!-- Heading -->
         <div class="sidebar-heading"> Admin Section </div>
         <!-- Nav Item - Pages Collapse Menu -->
+        @can('request-list')
+        <li class="nav-item {{ request()->routeIs('super-admin.requests') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('super-admin.requests') }}">
+                <i class="fa-solid fa-bell fa-shake"></i>
+                <span>Request's</span>
+                <span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
+                   {{ requestPendingCount() }}
+                </span>
+            </a>
+        </li>
+        @endcan
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#taTpDropDown"
                 aria-expanded="true" aria-controls="taTpDropDown">
@@ -81,7 +99,7 @@
             </a>
             <div id="taTpDropDown" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">User Management:</h6>
+                    <h6 class="collapse-header">User Management</h6>
                     <a class="collapse-item" href="{{ route('super-admin.index') }}">List</a>
                     <a class="collapse-item" href="{{ route('super-admin.create') }}">Add New</a>
                     <a class="collapse-item" href="{{ route('super-admin.import') }}">Import Data</a>

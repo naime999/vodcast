@@ -39,7 +39,53 @@
             }
         });
     });
+
     function newLabel(){
         $('#newLabelModal').modal('show');
+    }
+
+    function requestVodcaster(){
+        swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to request administrator, Permissions for the vodcaster ?",
+            icon: "info",
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Request Now`,
+            cancelButtonText: `Try Later`,
+        }).then((result) => {
+            if(result.value === true){
+                $.ajax({
+                    url: "{{ route('users.request.vodcast') }}",
+                    method: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response);
+                            if(response.status == 'success'){
+                                Swal.fire({
+                                    icon: response.status,
+                                    title: "Success",
+                                    text: response.message,
+                                    showConfirmButton: false,
+                                    timerProgressBar: true,
+                                    timer: 1500
+                                });
+                            }else{
+                                Swal.fire({
+                                    icon: response.status,
+                                    title: "Error!",
+                                    text: response.message,
+                                    showConfirmButton: false,
+                                    timerProgressBar: true,
+                                    timer: 1500
+                                });
+                            }
+                    },
+                });
+            }
+        });
     }
 </script>

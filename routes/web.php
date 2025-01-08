@@ -42,6 +42,7 @@ Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 
 // User
 Route::middleware('auth')->prefix('users')->name('users.')->group(function(){
     Route::get('/', [App\Http\Controllers\User\UserController::class, 'index'])->name('index');
+    Route::post('/request/vodcast', [App\Http\Controllers\User\UserController::class, 'requestVodcast'])->name('request.vodcast');
 
     // ---- Content
     Route::get('/content', [App\Http\Controllers\User\ContentController::class, 'index'])->name('content');
@@ -137,13 +138,20 @@ Route::middleware('auth')->prefix('super-admin')->name('super-admin.')->group(fu
     // // ------------- Template
     // Route::get('/templates', [TemplateController::class, 'index'])->name('template');
     // Route::post('/templates/get', [TemplateController::class, 'getTemplates'])->name('template.get');
-    // Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-    // Route::get('/categories/get', [CategoryController::class, 'getData'])->name('categories.get');
-    // Route::post('/category/create', [CategoryController::class, 'create'])->name('category.create');
-    // Route::get('/category/get', [CategoryController::class, 'getCategory'])->name('category.get');
-    // Route::post('/category/update', [CategoryController::class, 'updateCategory'])->name('category.update');
-    // Route::post('/category/delete', [CategoryController::class, 'deleteCategory'])->name('category.delete');
     // Route::post('/proposal/duplicate', [TemplateController::class, 'duplicate'])->name('proposal.duplicate');
+
+    // ------------- Category
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+    Route::get('/categories/get', [CategoryController::class, 'getData'])->name('categories.get');
+    Route::post('/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::get('/category/get', [CategoryController::class, 'getCategory'])->name('category.get');
+    Route::post('/category/update', [CategoryController::class, 'updateCategory'])->name('category.update');
+    Route::post('/category/delete', [CategoryController::class, 'deleteCategory'])->name('category.delete');
+
+    // ------------- Category
+    Route::get('/requests', [App\Http\Controllers\Admin\RequestController::class, 'index'])->name('requests');
+    Route::get('/requests/get', [App\Http\Controllers\Admin\RequestController::class, 'getData'])->name('requests.get');
+    Route::post('/requests/change/status', [App\Http\Controllers\Admin\RequestController::class, 'changeStatus'])->name('requests.change.status');
 
 
     Route::get('/import-users', [App\Http\Controllers\Admin\AdminController::class, 'importUsers'])->name('import');

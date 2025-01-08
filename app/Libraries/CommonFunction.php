@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use App\Models\AdminRequest;
 
 class CommonFunction
 {
@@ -160,6 +161,16 @@ class CommonFunction
             $approve_status = '<a href=""class="text-white" id="'.$id.'" style="text-decoration: none;" name="'.$approve_status.'" onclick="ApprovedStatusChange(this.id,this.name,event)">
             Disapprove</a>';
         return '<span class="' . $class . '" style="font-size:12px; border-radius:4px; padding:4px">' . $approve_status . '</span>';
+        }
+    }
+
+    public static function getRequestStatus($approve_status) {
+        if ($approve_status == 0) {
+            return '<span class="bg-warning p-1 px-2 rounded-2 text-light">Pending</span>';
+        }else if ($approve_status == 1) {
+            return '<span class="bg-success p-1 px-2 rounded-2 text-light">Approved</span>';
+        } else {
+            return '<span class="bg-danger p-1 px-2 rounded-2 text-light">Declined</span>';
         }
     }
 

@@ -5,6 +5,7 @@ use App\Models\PrivacyPolicy;
 use App\Models\Term;
 use App\Models\Setting;
 use App\Models\Page;
+use App\Models\AdminRequest;
 
 if (!function_exists('contactUsInformation')) {
     function contactUsInformation()
@@ -79,5 +80,42 @@ if (!function_exists('termsCondition')) {
     {
         $termsCondition = Term::where('status',1)->first();
         return $termsCondition;
+    }
+}
+
+if (!function_exists('requestForVodcast')) {
+    function requestForVodcast()
+    {
+        $getRequest = AdminRequest::where('requested_user_id', Auth()->user()->id)->first();
+        if($getRequest){
+            if($getRequest->status == 0){
+                return '<span class="bg-warning p-1 px-2 rounded text-light mr-1"><i class="fa-solid fa-clock fa-spin-pulse"></i>&nbsp;Request Pending...</span>';
+            }else if($getRequest->status == 1){
+                return '<span class="bg-success p-1 px-2 rounded text-light mr-1"><i class="fa-sharp fa-solid fa-badge-check fa-fade"></i>&nbsp;Vodcaster</span>';
+            }else{
+                return '<span class="bg-danger p-1 px-2 rounded text-light mr-1"><i class="fa-solid fa-seal-exclamation fa-fade"></i>&nbsp;Declined</span>';
+            }
+        }else{
+            return null;
+        }
+    }
+}
+
+if (!function_exists('requestData')) {
+    function requestData()
+    {
+        $req = AdminRequest::where('requested_user_id', Auth()->user()->id)->first();
+        if($req){
+            return $req;
+        }else{
+            return null;
+        }
+    }
+}
+
+if (!function_exists('requestPendingCount')) {
+    function requestPendingCount()
+    {
+        return AdminRequest::where('status', 0)->get()->count();
     }
 }

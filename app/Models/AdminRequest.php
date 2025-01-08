@@ -9,18 +9,13 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class CategoryProposal extends Authenticatable
+class AdminRequest extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
-    protected $table = 'category_proposal';
+    protected $table = 'requests';
 
-    public function proposal()
+    public function requestedUser()
     {
-        return $this->hasOne(Proposal::class, 'id', 'proposal_id')->where('user_id', Auth()->user()->id)->with('sections');
+        return $this->hasOne(User::class, 'id', 'requested_user_id');
     }
-    public function category()
-    {
-        return $this->hasOne(Category::class, 'id', 'category_id');
-    }
-
 }

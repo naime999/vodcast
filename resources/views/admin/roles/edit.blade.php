@@ -58,13 +58,41 @@
                     </div>
 
                     <div class="col-sm-12 mb-3 mt-3 mb-sm-0">
-                        <label> <span style="color:red;">*</span> Permissions</label>
-                        <input type="checkbox" name="check-all" class="form-contol" id="checkAllPermissions" {{ (count($permissions) == count($role->permissions->pluck('id')->toArray())) ? 'checked' : '' }}/> All
-                        <div class="row">
-                            <div class="col-lg-12">
-                                @foreach ($permissions as $permissionIndex => $permission)
+                        <label> <span style="color:red;">*</span>All Permissions</label>
+                        <input type="checkbox" name="check-all" class="form-contol" id="checkAllPermissions" {{ (count($permissions) == count($role->permissions->pluck('id')->toArray())) ? 'checked' : '' }}/>
+                        <div class="row m-0">
+                            <div class="col-md-12">
+                                <label>Only Admin Permissions</label>
+                                <input type="checkbox" name="check-admin" class="form-contol" id="checkAdminPermissions" {{ (count($permissions) == count($role->permissions->where('define', 1)->pluck('id')->toArray())) ? 'checked' : '' }}/>
+                            </div>
+                            <div class="col-lg-12 border p-3 rounded mb-3">
+                                @foreach ($permissions->where('define', 1) as $permissionIndex => $permission)
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input permission-input" {{ in_array($permission->id, $role->permissions->pluck('id')->toArray()) ? 'checked' : '' }} type="checkbox" name="permissions[]" id="inlineCheckbox_{{$permissionIndex}}"  value="{{$permission->id}}">
+                                        <input class="form-check-input permission-input" {{ in_array($permission->id, $role->permissions->pluck('id')->toArray()) ? 'checked' : '' }} type="checkbox" name="permissions[]" id="inlineCheckbox_{{$permissionIndex}}" data-type="{{ $permission->define }}"  value="{{$permission->id}}">
+                                        <label class="form-check-label" for="inlineCheckbox{{$permissionIndex}}">{{ $permission->name }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="col-md-12">
+                                <label>Only Vodcaster Permissions</label>
+                                <input type="checkbox" name="check-vodcaster" class="form-contol" id="checkVodcasterPermissions" {{ (count($permissions) == count($role->permissions->where('define', 2)->pluck('id')->toArray())) ? 'checked' : '' }}/>
+                            </div>
+                            <div class="col-lg-12 border p-3 rounded mb-3">
+                                @foreach ($permissions->where('define', 2) as $permissionIndex => $permission)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input permission-input" {{ in_array($permission->id, $role->permissions->pluck('id')->toArray()) ? 'checked' : '' }} type="checkbox" name="permissions[]" id="inlineCheckbox_{{$permissionIndex}}" data-type="{{ $permission->define }}"  value="{{$permission->id}}">
+                                        <label class="form-check-label" for="inlineCheckbox{{$permissionIndex}}">{{ $permission->name }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="col-md-12">
+                                <label>Only User Permissions</label>
+                                <input type="checkbox" name="check-user" class="form-contol" id="checkUserPermissions" {{ (count($permissions) == count($role->permissions->where('define', 3)->pluck('id')->toArray())) ? 'checked' : '' }}/>
+                            </div>
+                            <div class="col-lg-12 border p-3 rounded mb-3">
+                                @foreach ($permissions->where('define', 3) as $permissionIndex => $permission)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input permission-input" {{ in_array($permission->id, $role->permissions->pluck('id')->toArray()) ? 'checked' : '' }} type="checkbox" name="permissions[]" id="inlineCheckbox_{{$permissionIndex}}" data-type="{{ $permission->define }}"  value="{{$permission->id}}">
                                         <label class="form-check-label" for="inlineCheckbox{{$permissionIndex}}">{{ $permission->name }}</label>
                                     </div>
                                 @endforeach
@@ -93,6 +121,15 @@
 <script>
     $("#checkAllPermissions").click(function(){
         $('.permission-input').not(this).prop('checked', this.checked);
+    });
+    $("#checkAdminPermissions").click(function(){
+        $('form').find('input[data-type="1"]').not(this).prop('checked', this.checked);
+    });
+    $("#checkVodcasterPermissions").click(function(){
+        $('form').find('input[data-type="2"]').not(this).prop('checked', this.checked);
+    });
+    $("#checkUserPermissions").click(function(){
+        $('form').find('input[data-type="3"]').not(this).prop('checked', this.checked);
     });
 </script>
 @endsection

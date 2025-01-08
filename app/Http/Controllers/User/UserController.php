@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\AdminRequest;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
@@ -69,7 +70,7 @@ class UserController extends Controller
             'first_name'    => 'required',
             'last_name'     => 'required',
             'email'         => 'required|unique:users,email',
-            'mobile_number' => 'required|numeric|digits:10',
+            'mobile_number' => 'required|numeric|digits:11',
             'role_id'       =>  'required|exists:roles,id',
             'status'       =>  'required|numeric|in:0,1',
         ]);
@@ -96,7 +97,7 @@ class UserController extends Controller
 
             // Commit And Redirected To Listing
             DB::commit();
-            return redirect()->route('admin.users.index')->with('success','User Created Successfully.');
+            return redirect()->route('super-admin.index')->with('success','User Created Successfully.');
 
         } catch (\Throwable $th) {
             // Rollback and return with Error
@@ -249,6 +250,22 @@ class UserController extends Controller
     public function export()
     {
         return Excel::download(new UsersExport, 'admin.users.xlsx');
+    }
+
+    public function requestVodcast(Request $request)
+    {
+        if (!$request->ajax()) {
+            return 'Sorry! this is a request without proper way.';
+        }
+
+        $adminRequest = new AdminRequest();
+
+        $adminRequest->requested_user_id = Auth()->user()->id;
+        if($adminRequest->save()){
+            return response()->json(['status' => 'success', 'message' => 'Your request has been successfully sent to the admin.']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Your request to the admin failed.'], 500);
+        }
     }
 
 }

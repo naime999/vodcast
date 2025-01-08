@@ -47,6 +47,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['full_name', 'role_name'];
+
     /**
      * Get the user's full name.
      *
@@ -57,5 +59,14 @@ class User extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
 
+    /**
+     * Get the user's role name.
+     *
+     * @return string|null
+     */
+    public function getRoleNameAttribute()
+    {
+        return $this->roles->pluck('name')->first();
+    }
 
 }

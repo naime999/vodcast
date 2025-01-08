@@ -53,6 +53,7 @@
     <script src="{{ asset('frontend\vendor\fontawesome-pro\js\all.js') }}" ></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/js/all.min.js" ></script> --}}
     <script src="{{ asset('admin/vendor/cropper/cropper.js') }}"></script>
+    <script src="{{ asset('admin/vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script>
         let loader = new lv();
         loader.initLoaderAll();
