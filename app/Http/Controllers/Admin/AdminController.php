@@ -168,7 +168,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        return $user;
+        // return $user;
         // Validations
         $request->validate([
             'first_name'    => 'required',

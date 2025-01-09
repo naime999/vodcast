@@ -63,6 +63,7 @@
                     @endif
                 @else
                     <a class="text-white btn bg-primary-500 transition rounded-md px-2 cursor-pointer py-2" href="{{ route('login') }}">Sign in</a>
+                    {{-- <a class="text-white btn bg-primary-500 transition rounded-md px-2 cursor-pointer py-2" href="{{ route('register') }}">Registration</a> --}}
                 @endif
 
             </div>

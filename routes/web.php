@@ -26,7 +26,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 Route::get('/', function () {
     return redirect()->route('login');
 });
-Auth::routes(['register' => false, 'verify' => true]);
+Auth::routes(['register' => true, 'verify' => true]);
 
 
 // ---- Frontend Pages
