@@ -19,21 +19,21 @@ $(document).ready(function($) {
     });
 
 	      // Magnific popup
-          $('.youtube-btn').magnificPopup({
-            type: 'iframe',
-            iframe: {
-                patterns: {
-                    youtube: {
-                        index: 'https://www.youtube.com/',
-    
-                        id: 'v=',
-                        src: 'https://www.youtube.com/embed/%id%?autoplay=1'
-                    }
-    
-                },
-                srcAction: 'iframe_src',
-            }
-         });  
+        //   $('.youtube-btn').magnificPopup({
+        //     type: 'iframe',
+        //     iframe: {
+        //         patterns: {
+        //             youtube: {
+        //                 index: 'https://www.youtube.com/',
+
+        //                 id: 'v=',
+        //                 src: 'https://www.youtube.com/embed/%id%?autoplay=1'
+        //             }
+
+        //         },
+        //         srcAction: 'iframe_src',
+        //     }
+        //  });
          $(".trending-carousel").owlCarousel({
           nav: true,
           loop:false,
@@ -86,24 +86,24 @@ $(document).ready(function($) {
                   },
               }
           });
-      
-          
+
+
         // Activate Bootstrap tab when clicking on a tab item in the carousel
         $('.nav-link').on('click', function() {
           $('.nav-link').removeClass('active');
           $(this).addClass('active');
         });
-      
-      
-      
+
+
+
         const forms = document.querySelector(".forms"),
         pwShowHide = document.querySelectorAll(".eye-icon"),
         links = document.querySelectorAll(".link");
-      
+
         pwShowHide.forEach(eyeIcon => {
         eyeIcon.addEventListener("click", () => {
             let pwFields = eyeIcon.parentElement.parentElement.querySelectorAll(".password");
-            
+
             pwFields.forEach(password => {
                 if(password.type === "password"){
                     password.type = "text";
@@ -113,10 +113,10 @@ $(document).ready(function($) {
                 password.type = "password";
                 eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
             })
-            
+
         })
-      });     
-      
+      });
+
       links.forEach(link => {
         link.addEventListener("click", e => {
           e.preventDefault(); //preventing form submit

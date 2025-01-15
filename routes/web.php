@@ -41,6 +41,7 @@ Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 
 Route::post('/youtube/data', [YoutubeController::class, 'data'])->name('youtube.data');
 Route::post('/youtube/player', [YoutubeController::class, 'playerData'])->name('youtube.player.data');
 Route::post('/youtube/playlist/data', [YoutubeController::class, 'playlistData'])->name('youtube.playlist.data');
+Route::post('/content/like', [YoutubeController::class, 'contentLike'])->name('content.like');
 
 // User
 Route::middleware('auth')->prefix('users')->name('users.')->group(function(){

@@ -44,6 +44,10 @@ class YoutubeController extends Controller
         $request->validate([
             'id'   => 'required',
         ]);
+        $content = Content::where('youtube_id', $request->id)->first();
+        $content->views = $content->views + 1;
+        $content->save();
+
         $playlist = $this->youtube->getPlaylistById($request->id);
         $orgDataList = $this->youtube->getPlaylistItemsByPlaylistId($request->id)['results'];
         $new_items = new \stdClass();
@@ -54,7 +58,12 @@ class YoutubeController extends Controller
             }
         }
         $playlist->items = $new_items->items;
-        return $playlist;
+
+        $new_class = new \stdClass();
+        $new_class->yt = $playlist;
+        $new_class->content = $content;
+        return response()->json($new_class);
+        // return $playlist;
     }
 
     public function insidePlaylistData($ytId)
@@ -73,9 +82,30 @@ class YoutubeController extends Controller
         $request->validate([
             'vid'   => 'required',
         ]);
-
+        $content = Content::where('youtube_id', $request->vid)->first();
+        $content->views = $content->views + 1;
+        $content->save();
         $videoData = $this->youtube->getLocalizedVideoInfo($request->vid, 'pl');
-        return response()->json($videoData);
+        // $videoData->content = $videoData;
+        $new_class = new \stdClass();
+        $new_class->yt = $videoData;
+        $new_class->content = $content;
+        return response()->json($new_class);
+    }
+
+    public function contentLike(Request $request)
+    {
+        if (!$request->ajax()) {
+            return 'Sorry! this is a request without proper way.';
+        }
+
+        $request->validate([
+            'id'   => 'required',
+        ]);
+        $content = Content::find($request->id);
+        $content->likes = $content->likes + 1;
+        $content->save();
+        return response()->json($content);
     }
 
 }

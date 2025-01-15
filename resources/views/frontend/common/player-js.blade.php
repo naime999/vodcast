@@ -14,8 +14,10 @@
             success: function(response) {
                 console.log(response);
                 load.hide();
-                $('#videoPlayerModal').find('.modal-title').text(response.snippet.title);
-                $('#videoPlayerModal').find('.modal-body').html(response.player.embedHtml);
+                $('#videoPlayerModal').find('#likeButton').attr('data-id', response.content.id);
+                $('#videoPlayerModal').find('#likeButton span').text('( '+response.content.likes+' )');
+                $('#videoPlayerModal').find('.modal-title').text(response.yt.snippet.title);
+                $('#videoPlayerModal').find('.modal-body').html(response.yt.player.embedHtml);
                 $('#videoPlayerModal iframe').css({width: '100%', height: '550px'});
                 $('#videoPlayerModal').modal('show');
             },
@@ -50,7 +52,7 @@
                 load.hide();
                 var html = '';
                 var key = 0
-                response.items.forEach(item => {
+                response.yt.items.forEach(item => {
                     // console.log(item);
                     var active = key == 0 ? 'active-item' : '';
                     var view = '<div class="list-group-item list-group-item-action '+active+'" onclick="playVideoInPlaylist(this)" data-id="'+item.snippet.resourceId.videoId+'">'+
@@ -68,6 +70,8 @@
                 });
                 $('#playlist-video-items').html(html);
                 $('#playlist-video-items').find('.active-item').click();
+                $('#likeButton-playlist').attr('data-id', response.content.id);
+                $('#likeButton-playlist span').text('( '+response.content.likes+' )');
                 $('#playlistPlayerModal').modal('show');
             },
             error: function(xhr, status, error) {
@@ -121,4 +125,33 @@
         const modal = $('#videoPlayerModal');
         modal.find('.modal-body').html('');  // Clear the video content
     });
+
+    function likeContent(btnData){
+        var contentId = $(btnData).attr('data-id');
+        $.ajax({
+            url: "{{ route('content.like') }}",
+            method: "POST",
+            data: {
+                id: contentId,
+                "_token": "{{ csrf_token() }}"
+            },
+            dataType: 'json',
+            success: function(response) {
+                // console.log(response);
+                $(btnData).find('span').text('( '+response.likes+' )');
+            },
+            error: function(xhr, status, error) {
+                load.hide();
+                console.log(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'An unexpected error occurred. Please try again later.',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    timer: 1500
+                });
+            }
+        });
+    }
 </script>

@@ -13,7 +13,7 @@
 <script src="{{ asset('frontend/assets/js/wow.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/waypoints.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/isotope.pkgd.min.js') }}"></script>
-<script src="{{ asset('frontend/assets/js/magnific-popup.js') }}"></script>
+{{-- <script src="{{ asset('frontend/assets/js/magnific-popup.js') }}"></script> --}}
 <script src="{{ asset('frontend/assets/js/counterup.min.js') }}"></script>
 <!-- Custom JS Link -->
 <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>

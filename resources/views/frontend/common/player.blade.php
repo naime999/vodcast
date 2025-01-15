@@ -9,6 +9,7 @@
             <div class="modal-body p-0 video-viewer">
             </div>
             <div class="modal-footer">
+                <button class="btn btn-secondary" id="likeButton" type="button" onclick="likeContent(this)" data-id=""><span class="me-2">( 5 )</span><i class="fa-solid fa-thumbs-up"></i></button>
                 <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
