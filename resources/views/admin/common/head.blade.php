@@ -26,6 +26,7 @@
     <!-- Styles for this template-->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('admin/vendor/cropper/cropper.css') }}" rel="stylesheet">
     @yield('css')
     <style>
         .loader-overlay {

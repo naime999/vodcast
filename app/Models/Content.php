@@ -17,6 +17,11 @@ class Content extends Model
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
     public function playlistItems()
     {
         $ytController = new YoutubeController();

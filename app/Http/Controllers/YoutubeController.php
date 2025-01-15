@@ -45,7 +45,22 @@ class YoutubeController extends Controller
             'id'   => 'required',
         ]);
         $playlist = $this->youtube->getPlaylistById($request->id);
-        $playlist->items = $this->youtube->getPlaylistItemsByPlaylistId($request->id);
+        $orgDataList = $this->youtube->getPlaylistItemsByPlaylistId($request->id)['results'];
+        $new_items = new \stdClass();
+        $new_items->items = [];
+        foreach($orgDataList as $item){
+            if($item->status->privacyStatus == 'public'){
+                $new_items->items[] = $item;
+            }
+        }
+        $playlist->items = $new_items->items;
+        return $playlist;
+    }
+
+    public function insidePlaylistData($ytId)
+    {
+        $playlist = $this->youtube->getPlaylistById($ytId);
+        $playlist->items = $this->youtube->getPlaylistItemsByPlaylistId($ytId)['results'];
         return $playlist;
     }
 

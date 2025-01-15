@@ -109,4 +109,28 @@ class ViewPlaylistController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Playlist label is not deleted.']);
         }
     }
+
+    public function labelAddVideo(Request $request)
+    {
+        try{
+            $viewPlaylists = ViewPlaylist::where('user_id', Auth()->user()->id)->get();
+            foreach($viewPlaylists as $viewPlaylist){
+                $videoPlaylist = VideoPlaylist::where('view_playlist_id', $viewPlaylist->id)->where('content_id', $request->video_id)->first();
+                if($videoPlaylist){
+                    $videoPlaylist->delete();
+                }
+            }
+            foreach($request->labels as $label){
+                $newVideoAdd = new VideoPlaylist();
+                $newVideoAdd->content_id = $request->video_id;
+                $newVideoAdd->view_playlist_id = $label;
+                $newVideoAdd->save();
+            }
+            return redirect()->back()->with('success','Successfully add this video.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error','This video could not be added.');
+        }
+    }
+
 }

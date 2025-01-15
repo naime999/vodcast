@@ -20,6 +20,7 @@
     {{-- ==================== Body End ==================== --}}
 
     <!-- Page Footer -->
+    @include('frontend.common.modals')
     @include('frontend.common.footer')
 
     <!-- js -->

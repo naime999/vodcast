@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Content;
+use App\Models\Category;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
@@ -31,7 +33,30 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('frontend.home.index');
+        $contents = Content::orderBy('created_at', 'desc')->get();
+        foreach($contents as $content){
+            if($content->c_type == 1){
+                $youtubeController = new \App\Http\Controllers\YoutubeController();
+                try {
+                    $orgDataList = $youtubeController->insidePlaylistData($content->youtube_id);
+                    $new_items = new \stdClass();
+                    $new_items->items = [];
+                    foreach($orgDataList->items as $item){
+                        if($item->status->privacyStatus != 'private'){
+                            $new_items->items[] = $item;
+                        }
+                    }
+                    $orgDataList->items = $new_items->items;
+                    $content->playlist_data = $orgDataList;
+                } catch (\Exception $e) {
+                    $content->playlist_data = null;
+                }
+            }
+        }
+        $categories = Category::where('is_active', 1)->with('relations')->get();
+        // return $contents;
+
+        return view('frontend.home.index', compact('contents','categories'));
     }
 
     /**

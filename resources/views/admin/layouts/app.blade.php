@@ -57,6 +57,7 @@
 
     <!-- Logout Modal-->
     @include('admin.common.logout-modal')
+    @include('admin.common.cropper_model')
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('js/app.js')}}"></script>
@@ -64,8 +65,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('admin/js/sb-admin-2.min.js')}}"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/js/all.min.js" ></script>
+    <script src="{{ asset('admin/vendor/cropper/cropper.js') }}"></script>
     <script>
         let loader = new lv();
         loader.initLoaderAll();
@@ -74,6 +75,7 @@
             load.hide();
         });
     </script>
+    @include('admin.common.cropper')
     @yield('scripts')
 </body>
 

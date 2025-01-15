@@ -32,12 +32,15 @@ Auth::routes(['register' => true, 'verify' => true]);
 // ---- Frontend Pages
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 Route::get('/vodcast', [App\Http\Controllers\Frontend\VodcastController::class, 'index'])->name('vodcast');
-Route::get('/categories', [App\Http\Controllers\Frontend\CategoryController::class, 'index'])->name('categories');
+Route::get('/categories', [App\Http\Controllers\Frontend\CategoryController::class, 'categories'])->name('categories');
+Route::get('/category/{slug}', [App\Http\Controllers\Frontend\CategoryController::class, 'category'])->name('category');
 Route::get('/search', [App\Http\Controllers\Frontend\SearchController::class, 'index'])->name('search');
 Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('contact');
 
 
-
+Route::post('/youtube/data', [YoutubeController::class, 'data'])->name('youtube.data');
+Route::post('/youtube/player', [YoutubeController::class, 'playerData'])->name('youtube.player.data');
+Route::post('/youtube/playlist/data', [YoutubeController::class, 'playlistData'])->name('youtube.playlist.data');
 
 // User
 Route::middleware('auth')->prefix('users')->name('users.')->group(function(){
@@ -81,6 +84,7 @@ Route::middleware('auth')->prefix('users')->name('users.')->group(function(){
     Route::post('/playlist/label/select', [App\Http\Controllers\User\ViewPlaylistController::class, 'selectLabel'])->name('playlist.label.select');
     Route::post('/playlist/label/update', [App\Http\Controllers\User\ViewPlaylistController::class, 'updateLabel'])->name('playlist.label.update');
     Route::post('/playlist/label/delete', [App\Http\Controllers\User\ViewPlaylistController::class, 'deleteLabel'])->name('playlist.label.delete');
+    Route::post('/label/add/video', [App\Http\Controllers\User\ViewPlaylistController::class, 'labelAddVideo'])->name('label.add.video');
 
     Route::post('/youtube/get', [YoutubeController::class, 'get'])->name('youtube.get');
     Route::post('/youtube/data', [YoutubeController::class, 'data'])->name('youtube.data');

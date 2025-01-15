@@ -34,6 +34,7 @@
                             <th>#</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th>Image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -52,6 +53,7 @@
 @section('scripts')
 <script src="{{ asset('admin/vendor/bootstrap-5.1.3-dist/js/bootstrap.bundle.js') }}"></script>
 @include('admin.common.datatable_js')
+<script src="{{ asset('admin/vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
 @if(session('success'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -125,6 +127,7 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'name', name: 'name'},
                 {data: 'description', name: 'description'},
+                {data: 'image', name: 'image'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             "aaSorting": [],

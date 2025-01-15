@@ -59,6 +59,9 @@ class CategoryController extends Controller
                 ->addColumn('description', function ($list) {
                     return \Illuminate\Support\Str::limit($list->description, 100);
                 })
+                ->addColumn('image', function ($list) {
+                    return '<img src="'.asset($list->image).'" width="80">';
+                })
                 ->addColumn('action', function ($list) {
                     // return "";
                     if(auth()->user()->can('category-edit') || auth()->user()->can('category-delete')){
@@ -83,7 +86,7 @@ class CategoryController extends Controller
                     }
                 })
                 ->addIndexColumn()
-                ->rawColumns(['description', 'action'])
+                ->rawColumns(['description', 'image', 'action'])
                 ->make(true);
         } catch (\Exception $e) {
             // Session::flash('error', CommonFunction::showErrorPublic($e->getMessage()) . '[UC-1001]');
@@ -102,6 +105,7 @@ class CategoryController extends Controller
 
         $this->validate($request, [
             'title' => 'required|max:500',
+            'cat_image'    => 'required',
         ]);
 
         $category = new Category();
@@ -109,6 +113,20 @@ class CategoryController extends Controller
         $category->name = $request->title;
         $category->slug = Str::slug($request->title, '-');
         $category->description = $request->description;
+
+        if ($request->cat_image_baseImage != null) {
+            $baseImage = $request->cat_image_baseImage;
+            $base64_str = substr($baseImage, strpos($baseImage, ",") + 1);
+            $image = base64_decode($base64_str);
+            $image_name = "category-" . time() . ".png";
+            $location = 'uploads/category/';
+            if (!file_exists($location)) {
+                mkdir($location);
+            }
+            Image::make($image)->save($location . $image_name);
+            $category->image = $location . $image_name;
+        }
+
         $category->is_active = 1;
 
         if($category->save()){
@@ -140,6 +158,22 @@ class CategoryController extends Controller
             $category->description = $request->description;
         }
 
+        if ($request->cat_edit_image_baseImage != null) {
+            if($category->image != ""){
+                @unlink($category->image);
+            }
+            $baseImage = $request->cat_edit_image_baseImage;
+            $base64_str = substr($baseImage, strpos($baseImage, ",") + 1);
+            $image = base64_decode($base64_str);
+            $image_name = "category-" . time() . ".png";
+            $location = 'uploads/category/';
+            if (!file_exists($location)) {
+                mkdir($location);
+            }
+            Image::make($image)->save($location . $image_name);
+            $category->image = $location . $image_name;
+        }
+
         if($category->save()){
             return redirect()->back()->with('success', 'Update category successful.');
         }else{
@@ -153,6 +187,9 @@ class CategoryController extends Controller
             'id' => 'required',
         ]);
         $category = Category::find($request->id);
+        if($category->image != ""){
+            @unlink($category->image);
+        }
         if($category->delete()) {
             return response()->json(['success' => true, 'message' => 'Category deleted successfully.']);
         } else {
