@@ -12,7 +12,7 @@
                 },
                 dataType: 'json',
                 success: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     load.hide();
                     $('#videoPlayerModal').find('.modal-title').text(response.snippet.title);
                     $('#videoPlayerModal').find('.modal-body').html(response.player.embedHtml);

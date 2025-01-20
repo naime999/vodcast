@@ -10,16 +10,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page"href="{{ route('vodcast') }}">Vodcast</a>
+              <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" aria-current="page"href="{{ route('home') }}">Vodcast</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('categories') }}">Category</a>
+              <a class="nav-link {{ request()->routeIs('categories') ? 'active' : '' }}" href="{{ route('categories') }}">Category</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="{{ route('search') }}">Search</a>
+               <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                <a class="nav-link {{ request()->routeIs('search') ? 'active' : '' }}" href="{{ route('search') }}"><i class="fa-sharp fa-solid fa-magnifying-glass fa-fade"></i></a>
             </li>
             <div class="ms-3">
                 {{-- @dd(auth()->user()->hasRole('User')) --}}

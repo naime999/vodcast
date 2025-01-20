@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
+        'uid',
         'email',
         'mobile_number',
         'role_id',
@@ -47,26 +48,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['full_name', 'role_name'];
+    protected $appends = ['full_name', 'role_name', 'avatar_url'];
 
-    /**
-     * Get the user's full name.
-     *
-     * @return string
-     */
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
     }
 
-    /**
-     * Get the user's role name.
-     *
-     * @return string|null
-     */
     public function getRoleNameAttribute()
     {
         return $this->roles->pluck('name')->first();
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return getAvatar($this->id);
     }
 
 }

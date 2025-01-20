@@ -82,6 +82,7 @@ class UserController extends Controller
             $user = User::create([
                 'first_name'    => $request->first_name,
                 'last_name'     => $request->last_name,
+                'uid'           => Crypt::encrypt($request->email),
                 'email'         => $request->email,
                 'mobile_number' => $request->mobile_number,
                 'role_id'       => $request->role_id,

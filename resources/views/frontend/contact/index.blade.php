@@ -45,14 +45,15 @@
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="contact-form">
-                        <form method="post" id="contact-form">
-                            <input type="hidden">
+                        {{-- @dd(auth()->user()->full_name) --}}
+                        <form method="post" id="contact-form" action="{{ route('contact.store') }}">
+                            @csrf
                             <div class="row">
                                 <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                    <input type="text" name="name" placeholder="Full Name" required="">
+                                    <input type="text" name="full_name" placeholder="Full Name" value="{{ auth()->check()?auth()->user()->full_name:'' }}" required="">
                                 </div>
                                 <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                    <input type="email" name="email" placeholder="Email Address" required="">
+                                    <input type="email" name="email" placeholder="Email Address" value="{{ auth()->check()?auth()->user()->email:'' }}" required="">
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <input type="text" name="subject" placeholder="Subject" required="">
@@ -61,10 +62,9 @@
                                     <textarea name="message" placeholder="Message" required=""></textarea>
                                 </div>
                                 <div class="form-group col-lg-12">
-                                    <button
-                                        class="text-white btn bg-primary-500  transition rounded-md px-2 cursor-pointer py-2"
-                                        type="submit" name="submit-form"><span class="btn-title">Send
-                                            Message</span></button>
+                                    <button class="text-white btn bg-primary-500  transition rounded-md px-2 cursor-pointer py-2" type="submit">
+                                        <span class="btn-title">Send Message</span>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -94,6 +94,7 @@
 @endsection
 
 @section('scripts')
+    @include('frontend.common.alert_js')
     <script>
         var load = $('.loader-overlay');
         $(document).ready(function() {

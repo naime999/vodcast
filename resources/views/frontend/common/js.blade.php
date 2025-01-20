@@ -17,6 +17,7 @@
 <script src="{{ asset('frontend/assets/js/counterup.min.js') }}"></script>
 <!-- Custom JS Link -->
 <script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
+<script src="{{ asset('admin/vendor/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
 <!-- Fontawesome Pro -->
 <script src="{{asset('frontend/vendor/fontawesome-pro/js/all.min.js')}}"></script>

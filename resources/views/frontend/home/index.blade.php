@@ -6,20 +6,6 @@
     .no-arrow::after {
         content: none; /* Removes the arrow content */
     }
-    .playlist-thumbnail-1{
-        left: 5px;
-        top: 5px;
-    }
-    .playlist-thumbnail-2{
-        left: 10px;
-        top: 10px;
-    }
-    .list-group-item.active-item {
-        z-index:2;
-        color:#fff;
-        background-color:#4e00009c;
-        border-color:#4e00009c
-    }
 </style>
 @endsection
 @section('content')
@@ -34,7 +20,7 @@
                 <p class="mt-2 font-normal text-neutral-500">Use cases</p>
             </div>
             <div class="row">
-                @foreach ($contents as $content)
+                @foreach ($contents->take(9) as $content)
                     @if ($content->c_type != 1)
                     <div class="col-md-4 use-case px-3 mb-3">
                         <div class="use-video-item  position-relative">

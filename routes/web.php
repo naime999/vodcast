@@ -31,11 +31,14 @@ Auth::routes(['register' => true, 'verify' => true]);
 
 // ---- Frontend Pages
 Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
-Route::get('/vodcast', [App\Http\Controllers\Frontend\VodcastController::class, 'index'])->name('vodcast');
-Route::get('/categories', [App\Http\Controllers\Frontend\CategoryController::class, 'categories'])->name('categories');
+// Route::get('/vodcast', [App\Http\Controllers\Frontend\VodcastController::class, 'index'])->name('vodcast');
+Route::get('/categories', [App\Http\Controllers\Frontend\CategoryController::class, 'index'])->name('categories');
 Route::get('/category/{slug}', [App\Http\Controllers\Frontend\CategoryController::class, 'category'])->name('category');
 Route::get('/search', [App\Http\Controllers\Frontend\SearchController::class, 'index'])->name('search');
+Route::post('/search/get', [App\Http\Controllers\Frontend\SearchController::class, 'getSearch'])->name('get.search');
 Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('contact');
+Route::post('/contact/store', [App\Http\Controllers\Frontend\ContactController::class, 'store'])->name('contact.store');
+Route::get('/author/{uid}', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('author.user');
 
 
 Route::post('/youtube/data', [YoutubeController::class, 'data'])->name('youtube.data');

@@ -14,11 +14,17 @@
             success: function(response) {
                 console.log(response);
                 load.hide();
-                $('#videoPlayerModal').find('#likeButton').attr('data-id', response.content.id);
-                $('#videoPlayerModal').find('#likeButton span').text('( '+response.content.likes+' )');
+                var authurl = "{{ url('author/user') }}/" + response.content.user.uid;
                 $('#videoPlayerModal').find('.modal-title').text(response.yt.snippet.title);
                 $('#videoPlayerModal').find('.modal-body').html(response.yt.player.embedHtml);
                 $('#videoPlayerModal iframe').css({width: '100%', height: '550px'});
+                $('#user-view').attr('href', authurl);
+                $('#user-view').find('img').attr('src', response.content.user.avatar_url);
+                $('#info h5').text(response.content.user.full_name);
+                $('#info span').text(response.content.user.role_name);
+                $('#viewCount span').text('( '+response.content.views+' )');
+                $('#videoPlayerModal').find('#likeButton').attr('data-id', response.content.id);
+                $('#videoPlayerModal').find('#likeButton span').text('( '+response.content.likes+' )');
                 $('#videoPlayerModal').modal('show');
             },
             error: function(xhr, status, error) {

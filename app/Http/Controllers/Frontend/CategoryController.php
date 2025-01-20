@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Content;
+use App\Models\Category;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
@@ -17,6 +19,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return view('frontend.categories.index');
+        $categories = Category::where('is_active', 1)->with('relations')->get();
+        // return $categories;
+        return view('frontend.categories.index', compact('categories'));
     }
 }

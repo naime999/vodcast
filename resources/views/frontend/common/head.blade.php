@@ -52,5 +52,19 @@
             z-index: 9999;
             /* visibility: hidden; */
         }
+        .playlist-thumbnail-1{
+            left: 5px;
+            top: 5px;
+        }
+        .playlist-thumbnail-2{
+            left: 10px;
+            top: 10px;
+        }
+        .list-group-item.active-item {
+            z-index:2;
+            color:#fff;
+            background-color:#4e00009c;
+            border-color:#4e00009c
+        }
     </style>
 </head>

@@ -82,7 +82,7 @@ class YoutubeController extends Controller
         $request->validate([
             'vid'   => 'required',
         ]);
-        $content = Content::where('youtube_id', $request->vid)->first();
+        $content = Content::where('youtube_id', $request->vid)->with('user')->first();
         $content->views = $content->views + 1;
         $content->save();
         $videoData = $this->youtube->getLocalizedVideoInfo($request->vid, 'pl');
