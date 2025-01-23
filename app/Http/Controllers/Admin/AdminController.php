@@ -175,9 +175,11 @@ class AdminController extends Controller
             'last_name'     => 'required',
             'email'         => 'required|unique:users,email,'.$user->id.',id',
             'mobile_number' => 'required|numeric|digits:11',
-            'role_id'       =>  'required|exists:roles,id',
-            'status'       =>  'required|numeric|in:0,1',
+            'role_id'       => 'required|exists:roles,id',
+            'trending' => 'required_if:role_id,3',
+            'status'        => 'required|numeric|in:0,1',
         ]);
+
 
         DB::beginTransaction();
         try {
@@ -189,6 +191,7 @@ class AdminController extends Controller
                 'email'         => $request->email,
                 'mobile_number' => $request->mobile_number,
                 'role_id'       => $request->role_id,
+                'trending'      => $request->trending,
                 'status'        => $request->status,
             ]);
 

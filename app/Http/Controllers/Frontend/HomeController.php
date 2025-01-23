@@ -204,4 +204,9 @@ class HomeController extends Controller
             return back()->with('error', $th->getMessage());
         }
     }
+
+    public function terms()
+    {
+        return view('frontend.extra.index');
+    }
 }

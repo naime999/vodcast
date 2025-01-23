@@ -102,7 +102,7 @@
                     "background-size": "contain",
                     "background-position": "center",
                     "background-repeat": "no-repeat"
-                });
+                }).html("");
                 $modal.modal('hide')
             }
         });

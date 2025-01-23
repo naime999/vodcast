@@ -165,12 +165,14 @@ class CommonFunction
     }
 
     public static function getRequestStatus($approve_status) {
-        if ($approve_status == 0) {
+        if ($approve_status == 1) {
             return '<span class="bg-warning p-1 px-2 rounded-2 text-light">Pending</span>';
-        }else if ($approve_status == 1) {
+        }else if ($approve_status == 2) {
             return '<span class="bg-success p-1 px-2 rounded-2 text-light">Approved</span>';
-        } else {
+        } else if ($approve_status == 3){
             return '<span class="bg-danger p-1 px-2 rounded-2 text-light">Declined</span>';
+        } else {
+            return '<span class="bg-danger p-1 px-2 rounded-2 text-light">Re-Request</span>';
         }
     }
 

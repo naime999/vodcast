@@ -122,6 +122,21 @@
                         @enderror
                     </div>
 
+                    {{-- Trending --}}
+                    @if ($user->role_id == 3)
+                    <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+                        <span style="color:red;">*</span>Trending</label>
+                        <select class="form-control form-control-user @error('trending') is-invalid @enderror" name="trending">
+                            <option selected>Select Trending</option>
+                            <option value="0" {{old('role_id') ? ((old('role_id') == 0) ? 'selected' : '') : (($user->trending == 0) ? 'selected' : '')}}>Default</option>
+                            <option value="1" {{old('role_id') ? ((old('role_id') == 1) ? 'selected' : '') : (($user->trending == 1) ? 'selected' : '')}}>Trending</option>
+                        </select>
+                        @error('trending')
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                    @endif
+
                 </div>
             </div>
 

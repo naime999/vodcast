@@ -45,16 +45,23 @@
     }
 
     function requestVodcaster(){
-        swal.fire({
+        Swal.fire({
             title: "Are you sure?",
             text: "Do you want to request administrator, Permissions for the vodcaster ?",
             icon: "info",
+            input: "checkbox",
+            inputValue: 0,
+            inputPlaceholder:`I agree with the terms and conditions <a href="{{ route('terms') }}" class="alert-link">learn more...</a>`,
             showCloseButton: true,
             showCancelButton: true,
             confirmButtonText: `Request Now`,
             cancelButtonText: `Try Later`,
+            inputValidator: (result) => {
+                return !result && "You need to agree with terms and conditions";
+            }
         }).then((result) => {
-            if(result.value === true){
+            console.log('then', result);
+            if(result.value === 1){
                 $.ajax({
                     url: "{{ route('users.request.vodcast') }}",
                     method: "POST",

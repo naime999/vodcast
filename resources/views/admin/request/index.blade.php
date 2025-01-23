@@ -139,9 +139,10 @@
             inputPlaceholder: "Select request status",
             inputValue: selected,
             inputOptions: {
-                0: "Pending",
-                1: "Approved",
-                2: "Declined",
+                1: "Pending",
+                2: "Approved",
+                3: "Declined",
+                0: "Re-Request",
             },
             icon: "info",
             showCloseButton: true,

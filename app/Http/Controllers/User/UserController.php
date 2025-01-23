@@ -258,10 +258,14 @@ class UserController extends Controller
         if (!$request->ajax()) {
             return 'Sorry! this is a request without proper way.';
         }
-
-        $adminRequest = new AdminRequest();
-
-        $adminRequest->requested_user_id = Auth()->user()->id;
+        $oldRequest = AdminRequest::where('requested_user_id',Auth()->user()->id)->first();
+        if($oldRequest){
+            $adminRequest =  AdminRequest::find($oldRequest->id);
+            $adminRequest->status = 1;
+        }else{
+            $adminRequest = new AdminRequest();
+            $adminRequest->requested_user_id = Auth()->user()->id;
+        }
         if($adminRequest->save()){
             return response()->json(['status' => 'success', 'message' => 'Your request has been successfully sent to the admin.']);
         } else {

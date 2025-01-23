@@ -88,12 +88,14 @@ if (!function_exists('requestForVodcast')) {
     {
         $getRequest = AdminRequest::where('requested_user_id', Auth()->user()->id)->first();
         if($getRequest){
-            if($getRequest->status == 0){
+            if($getRequest->status == 1){
                 return '<span class="bg-warning p-1 px-2 rounded text-light mr-1"><i class="fa-solid fa-clock fa-spin-pulse"></i>&nbsp;Request Pending...</span>';
-            }else if($getRequest->status == 1){
+            }else if($getRequest->status == 2){
                 return '<span class="bg-success p-1 px-2 rounded text-light mr-1"><i class="fa-sharp fa-solid fa-badge-check fa-fade"></i>&nbsp;Vodcaster</span>';
-            }else{
+            }else if($getRequest->status == 3){
                 return '<span class="bg-danger p-1 px-2 rounded text-light mr-1"><i class="fa-solid fa-seal-exclamation fa-fade"></i>&nbsp;Declined</span>';
+            }else{
+                return null;
             }
         }else{
             return null;
@@ -116,6 +118,6 @@ if (!function_exists('requestData')) {
 if (!function_exists('requestPendingCount')) {
     function requestPendingCount()
     {
-        return AdminRequest::where('status', 0)->get()->count();
+        return AdminRequest::where('status', 1)->get()->count();
     }
 }

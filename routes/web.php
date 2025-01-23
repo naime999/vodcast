@@ -39,6 +39,7 @@ Route::post('/search/get', [App\Http\Controllers\Frontend\SearchController::clas
 Route::get('/contact', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('contact');
 Route::post('/contact/store', [App\Http\Controllers\Frontend\ContactController::class, 'store'])->name('contact.store');
 Route::get('/author/{uid}', [App\Http\Controllers\Frontend\ContactController::class, 'index'])->name('author.user');
+Route::get('/terms', [App\Http\Controllers\Frontend\HomeController::class, 'terms'])->name('terms');
 
 
 Route::post('/youtube/data', [YoutubeController::class, 'data'])->name('youtube.data');
@@ -94,6 +95,12 @@ Route::middleware('auth')->prefix('users')->name('users.')->group(function(){
     Route::post('/youtube/data', [YoutubeController::class, 'data'])->name('youtube.data');
     Route::post('/youtube/playlist/data', [YoutubeController::class, 'playlistData'])->name('youtube.playlist.data');
     Route::post('/youtube/player', [YoutubeController::class, 'playerData'])->name('youtube.player.data');
+
+    Route::prefix('profile')->name('profile.')->middleware('auth')->group(function(){
+        Route::get('/', [App\Http\Controllers\User\ProfileController::class, 'getProfile'])->name('details');
+        Route::post('/update', [App\Http\Controllers\User\ProfileController::class, 'updateProfile'])->name('update');
+        Route::post('/change-password', [App\Http\Controllers\User\ProfileController::class, 'changePassword'])->name('change-password');
+    });
 
 });
 

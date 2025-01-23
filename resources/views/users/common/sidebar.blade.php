@@ -7,7 +7,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
     <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
-        <a class="nav-link py-2" href="{{ route('super-admin.index') }}">
+        <a class="nav-link py-2" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-tachometer-alt pr-1"></i>
             <span>Dashboard</span>
         </a>

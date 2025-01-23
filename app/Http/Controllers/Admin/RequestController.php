@@ -62,7 +62,7 @@ class RequestController extends Controller
                     return $list->requestedUser->role_name;
                 })
                 ->addColumn('status', function ($list) {
-                    return CommonFunction::getRequestStatus($list->status);
+                    return CommonFunction::getRequestStatus($list->status).($list->request_step != 1 ? ' Step - ' . $list->request_step :'');
                 })
                 ->addColumn('action', function ($list) {
                     // return "";
@@ -75,10 +75,6 @@ class RequestController extends Controller
                             <li>';
 
                         $ht .= '<button class="dropdown-item btn py-2 text-primary" onclick="changeStatus(this)" data-id="'. $list->id.'" data-select="'. $list->status.'"><i class="fa-solid fa-rotate fa-fade"></i> Change Status</button>';
-
-                        // if(auth()->user()->can('category-delete')){
-                        // $ht .= '<button class="dropdown-item btn py-2 text-danger" onclick="deleteCategory(this)" data-id="'.$list->id.'"><i class="fas fa-trash pr-2"></i> Delete</button>';
-                        // }
                         $ht .= '</li>
                             </ul>
                             </div>';
@@ -116,9 +112,12 @@ class RequestController extends Controller
             $user = User::find($adminRequest->requested_user_id);
             DB::table('model_has_roles')->where('model_id',$user->id)->delete();
 
-            if($request->select_status == 1){
+            if($request->select_status == 2){
                 $user->assignRole(3);
             }else{
+                if($request->select_status == 0){
+                    $adminRequest->request_step = $adminRequest->request_step + 1;
+                }
                 $user->assignRole(2);
             }
 
